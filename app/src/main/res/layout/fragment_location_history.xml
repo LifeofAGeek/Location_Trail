@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.LocationHistoryFragment">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_50sdp"
+            android:background="#3307B3">
+<ImageView
+    android:id="@+id/download"
+    android:layout_width="wrap_content"
+    android:layout_alignParentRight="true"
+    android:layout_marginTop="@dimen/_10sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:src="@drawable/ic_file_download_black_24dp"
+    android:layout_height="wrap_content">
+
+</ImageView>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/profile"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_marginTop="@dimen/_35sdp"
+            android:background="@drawable/rounded_top_corners_f8f8f8"
+            android:paddingLeft="@dimen/_20sdp"
+            android:paddingRight="@dimen/_20sdp">
+
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+    <TextView
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Track Location"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_60sdp"
+        android:textSize="@dimen/_20sdp"
+        android:textColor="#3307B3"
+        ></TextView>
+<LinearLayout
+    android:layout_marginLeft="@dimen/_20sdp"
+    android:layout_marginRight="@dimen/_20sdp"
+    android:layout_width="match_parent"
+    android:background="@drawable/location_list_bg"
+    android:weightSum="3"
+    android:layout_marginTop="@dimen/_100sdp"
+    android:layout_height="wrap_content" >
+    <TextView
+        android:id="@+id/lat"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="Longitude"
+        android:textSize="14sp"
+        android:textColor="#000000"
+        >
+
+    </TextView>
+    <TextView
+        android:id="@+id/longi"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
+        android:gravity="center"
+        android:text="Latitude"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        >
+
+    </TextView>
+    <TextView
+        android:id="@+id/time"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Time"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="14sp"
+        >
+
+    </TextView>
+</LinearLayout>
+
+<androidx.recyclerview.widget.RecyclerView
+    android:id="@+id/recycler_view"
+    android:layout_marginLeft="@dimen/_20sdp"
+    android:layout_marginRight="@dimen/_20sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_60sdp"
+    android:scrollbars="vertical"
+    android:scrollbarAlwaysDrawVerticalTrack="true"
+    android:layout_marginTop="@dimen/_130sdp">
+
+</androidx.recyclerview.widget.RecyclerView>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+       android:id="@+id/clear"
+        app:fabCustomSize="40dp"
+        app:maxImageSize="20dp"
+        android:layout_width="wrap_content"
+        android:layout_marginBottom="@dimen/_90sdp"
+        android:layout_marginRight="@dimen/_5sdp"
+        android:src="@drawable/ic_delete_black_24dp"
+        android:tooltipText="clear"
+        android:elevation="6dp"
+        android:backgroundTint="#6200EE"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_height="wrap_content"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+     android:layout_width="wrap_content"
+        android:id="@+id/add"
+        app:fabCustomSize="40dp"
+        app:maxImageSize="20dp"
+     android:layout_marginBottom="@dimen/_50sdp"
+     android:layout_marginRight="@dimen/_5sdp"
+     android:src="@drawable/ic_add_black_24dp"
+     android:tooltipText="add"
+     android:elevation="6dp"
+     android:backgroundTint="#6200EE"
+     android:layout_alignParentBottom="true"
+     android:layout_alignParentRight="true"
+
+     android:layout_height="wrap_content"></com.google.android.material.floatingactionbutton.FloatingActionButton>
+</RelativeLayout>
+
+</FrameLayout>

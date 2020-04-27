@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/current_loaction"
+    android:title="Current Location"
+    android:icon="@drawable/ic_my_location_black_24dp"
+    ></item>
+    <item
+        android:id="@+id/location_history"
+        android:title="Track Location"
+        android:icon="@drawable/ic_location_on_black_24dp"
+        ></item>
+
+</menu>

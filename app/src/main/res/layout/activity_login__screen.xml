@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".fragments.CurrentLocationFragment"
+
+    >
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Track Location"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:textSize="@dimen/_20sdp"
+        android:textColor="#CC3307B3"
+        ></TextView>
+        <com.airbnb.lottie.LottieAnimationView
+
+            android:id="@+id/lottieAnimationView"
+            app:lottie_loop="true"
+            android:layout_marginTop="@dimen/_20sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_300sdp"></com.airbnb.lottie.LottieAnimationView>
+       <com.google.android.gms.common.SignInButton
+           android:layout_marginRight="@dimen/_10sdp"
+           android:layout_marginLeft="@dimen/_10sdp"
+           android:id="@+id/signin"
+           android:layout_marginTop="@dimen/_10sdp"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+
+           >
+
+       </com.google.android.gms.common.SignInButton>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="Sign in using your Google Account"
+        >
+
+    </TextView>
+</LinearLayout>
+</ScrollView>
+    <TextView
+        android:id="@+id/madewith"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="Made with "
+
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerHorizontal="true"
+        android:textColor="#B3000000"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+
+        android:layout_marginBottom="@dimen/_10sdp"
+        android:text="❤️"
+        android:layout_toRightOf="@id/madewith"
+        android:layout_alignParentBottom="true"
+
+        android:layout_centerHorizontal="true"
+        android:textColor="#B3DC0909"
+        />
+</RelativeLayout>
