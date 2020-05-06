@@ -44,8 +44,9 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class LocationHistoryFragment extends Fragment implements android.location.LocationListener {
 
-    ArrayList<String> locations=new ArrayList<>();
-    RecyclerView recyclerView;
+    ArrayList<String> locations=new ArrayList<>(); //CREATES AN ARRAY FOR STORING LOCATION TRAILS
+    RecyclerView recyclerView; // RecyclerView is a ViewGroup, which is used to display both vertical and horizontal
+                                // scrolling list of elements based on large set of data items.
     SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
     Date date = new Date();
     FloatingActionButton clear,add;
@@ -55,12 +56,18 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Inflated Layout
         final View v=inflater.inflate(R.layout.fragment_location_history, container, false);
+
+        //FINDING DIFFERENT COMPONENT BY USING ID
         recyclerView=v.findViewById(R.id.recycler_view);
-        Location l=getCurrentLocation(getContext());
         clear=v.findViewById(R.id.clear);
         add=v.findViewById(R.id.add);
+        imageView=v.findViewById(R.id.download);
+        Location l=getCurrentLocation(getContext());
+
         clear.setOnClickListener(new View.OnClickListener() {
+            //TO CLEAR LOCATION TRAIL
             @Override
             public void onClick(View view) {
                 locations.clear();
@@ -68,6 +75,8 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
                 Toast.makeText(getContext(),"Clear Location Track History",Toast.LENGTH_LONG).show();
             }
         });
+
+        //TAKES CURRENT LOCATION DETAILS AND ADDS TO LOCATION ARRAY LIST -> PASSES TO RECYCLER VIEW ADAPTER
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -81,7 +90,8 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
                 }
             }
         });
-        imageView=v.findViewById(R.id.download);
+
+        //DOWNLOADS CSV FILE ON CLICK OF DOWNLOAD BUTTON
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,12 +101,14 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
             }
         });
 
+        //IF LOCATION IS NOT NULL THEN INSERT TO LOCATION ARRAY
         if(l!=null) {
             SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
             Date date = new Date();
-            locations.add(l.getLatitude()+"#"+l.getLongitude()+"#"+formatter.format(date));
+            locations.add(l.getLatitude()+"#"+l.getLongitude()+"#"+formatter.format(date)); //AS A SINGLE STRING, SPLIT BY #
         }
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        //Add Adapter
         recyclerView.setAdapter(new HistoryLocationApapter(getContext(),locations));
         return v;
     }
@@ -108,7 +120,7 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
         Date date = new Date();
        locations.add(location.getLatitude()+"#"+location.getLongitude()+"#"+formatter.format(date));
         recyclerView.setAdapter(new HistoryLocationApapter(getContext(),locations));
-
+        //ON LOCATION CHANGE RECYCLER VIEW GETS UPDATED
 
 
     }
@@ -127,6 +139,7 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
     public void onProviderDisabled(String s) {
 
     }
+    //FETCH CURRENT LOCATION
     public Location getCurrentLocation(Context mContext){
         int MIN_TIME_BW_UPDATES = 1;
         int MIN_DISTANCE_CHANGE_FOR_UPDATES = 0;
@@ -201,6 +214,8 @@ public class LocationHistoryFragment extends Fragment implements android.locatio
         Location locErr = null;
         return locErr;
     }
+
+    //EXPORTS CSV FILE INTO YOUR STORAGE DEVICE
     public void export(){
         if(ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE)!= PackageManager.PERMISSION_GRANTED)
         {

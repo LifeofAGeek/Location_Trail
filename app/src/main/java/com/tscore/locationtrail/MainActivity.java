@@ -29,25 +29,29 @@ import com.tscore.locationtrail.fragments.LocationHistoryFragment;
 public class MainActivity extends AppCompatActivity implements LocationListener {
 private BottomNavigationView bottomNavigationView;
     private static final int PERMISSION_CODE = 101;
-
+    //defining variables
     String[] permissions_all={Manifest.permission.ACCESS_COARSE_LOCATION,Manifest.permission.ACCESS_FINE_LOCATION};
     LocationManager locationManager;
     boolean isGpsLocation;
     Location loc;
     boolean isNetworklocation;
 
-
+    //1st method which is called in activity life cycle
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //addLayout
         setContentView(R.layout.activity_main);
-
+        //checking permission and fetching location
        getLocation();
         bottomNavigationView=findViewById(R.id.bottom_nav);
+        //setting OnNavigationItemSelectedListener on bottomNavigationView
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
+        //add fragment over this activity
         getSupportFragmentManager().beginTransaction().replace(R.id.container,new CurrentLocationFragment()).commit();
     }
 
+    //OnNavigationItemSelectedListener
     private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod=new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -71,10 +75,11 @@ private BottomNavigationView bottomNavigationView;
         }
     };
 
+    //check permission (if access location is granted)
     private void getLocation() {
         if(Build.VERSION.SDK_INT>=23){
             if(checkPermission()){
-                getDeviceLocation();
+                getDeviceLocation(); // if yes then call getDeviceLocation()
             }
             else{
                 requestPermission();
@@ -84,13 +89,14 @@ private BottomNavigationView bottomNavigationView;
             getDeviceLocation();
         }
     }
-
+    //request for location permission - widget for allowing location
     private void requestPermission() {
         ActivityCompat.requestPermissions(MainActivity.this,permissions_all,PERMISSION_CODE);
     }
 
+    //check if granted
     private boolean checkPermission() {
-        for(int i=0;i<permissions_all.length;i++){
+        for(int i=0;i<permissions_all.length;i++){ //till all permission is checked
             int result= ContextCompat.checkSelfPermission(MainActivity.this,permissions_all[i]);
             if(result== PackageManager.PERMISSION_GRANTED){
                 continue;
@@ -104,14 +110,14 @@ private BottomNavigationView bottomNavigationView;
 
     private void getDeviceLocation() {
 
-        //now all permission part complete now let's fetch location
-        locationManager=(LocationManager)getSystemService(Service.LOCATION_SERVICE);
+        //now all permission part are completed, let's fetch location now using
+        locationManager=(LocationManager)getSystemService(Service.LOCATION_SERVICE); //device location using in built function
         isGpsLocation=locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER);
         isNetworklocation=locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         if(!isGpsLocation && !isNetworklocation){
 
-            showSettingForLocation();
-            getLastlocation();
+            showSettingForLocation(); //request again for location permission
+            getLastlocation(); // get last location
         }
         else{
             getFinalLocation();
@@ -147,9 +153,13 @@ private BottomNavigationView bottomNavigationView;
         }
     }
 
+    //takes GPS location or network location
     private void getFinalLocation() {
         //one thing i missed in permission let's complete it
         try{
+            //Name of the GPS location provider. This provider determines location using satellites.
+            // Depending on conditions, this provider may take a while
+            //to return a location fix. Requires the permission android.permission.ACCESS_FINE_LOCATION.
             if(isGpsLocation){
                 locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER,1000,0,MainActivity.this);
                 if(locationManager!=null){
@@ -159,6 +169,9 @@ private BottomNavigationView bottomNavigationView;
                     }
                 }
             }
+           // Name of the network location provider. This provider determines location based on availability of cell tower and WiFi access points.
+            // Results are retrieved by means of a network lookup. Requires either of the permissions android.permission.
+            // ACCESS_COARSE_LOCATION or android.permission.ACCESS_FINE_LOCATION.
             else if(isNetworklocation){
                 locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,1000,0,MainActivity.this);
                 if(locationManager!=null){
@@ -178,14 +191,14 @@ private BottomNavigationView bottomNavigationView;
 
     }
 
+    //for updating UI if needed
     private void updateUi(Location loc) {
         if(loc.getLatitude()==0 && loc.getLongitude()==0){
             getDeviceLocation();
         }
-
-
     }
 
+    //dialog box for enabling location
     private void showSettingForLocation() {
         AlertDialog.Builder al=new AlertDialog.Builder(MainActivity.this);
         al.setTitle("Location Not Enabled!");

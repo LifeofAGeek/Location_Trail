@@ -34,18 +34,23 @@ public class Login_Screen extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        //layout added here
         setContentView(R.layout.activity_login__screen);
+        //reference of signin button in layout
         signInButton=findViewById(R.id.signin);
+        //lottieAnimationView
         LottieAnimationView lottieAnimationView = findViewById(R.id.lottieAnimationView);
         lottieAnimationView.setAnimation(R.raw.welcome_screen);
         lottieAnimationView.playAnimation();
+        //auth_instance
         auth=FirebaseAuth.getInstance();
+
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken(getString(R.string.default_web_client_id))
                 .requestEmail()
                 .build();
         mGoogleSignInClient= GoogleSignIn.getClient(Login_Screen.this,gso);
+        //OnClick It will ask for login
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,9 +61,11 @@ public class Login_Screen extends AppCompatActivity {
 
     }
     private void signIn() {
+        //move to select google id -> dialog box
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 101);
     }
+    //saves the result of on click action
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -77,7 +84,7 @@ public class Login_Screen extends AppCompatActivity {
             }
         }
     }
-
+   // verifies google acc.
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         auth.signInWithCredential(credential)
@@ -87,10 +94,12 @@ public class Login_Screen extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
 
+                            //return current user details
                             FirebaseUser user = auth.getCurrentUser();
+                            //moves to main activity
                             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
                             startActivity(intent);
-                            finish();
+                            finish(); //finishes the current login screen
 
                         } else {
 
@@ -100,13 +109,14 @@ public class Login_Screen extends AppCompatActivity {
                     }
                 });
     }
+
     @Override
     public void onStart() {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
-
+            //fragment to main activity 
             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
         }

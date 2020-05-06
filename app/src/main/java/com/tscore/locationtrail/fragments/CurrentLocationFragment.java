@@ -53,12 +53,17 @@ Button seeMap;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        //Inflated view
         View view = inflater.inflate(R.layout.fragment_current_location, container, false);
+        //for logout feature
         googleSignInClient = GoogleSignIn.getClient(getContext(), GoogleSignInOptions.DEFAULT_SIGN_IN);
         firebaseAuth = FirebaseAuth.getInstance();
-      getCurrentLocation(getContext());
+
+      getCurrentLocation(getContext()); //finds current location
       seeMap=view.findViewById(R.id.seeMap);
       logout=view.findViewById(R.id.logout);
+
+      // on click of show in map -> intent to maps activity
       seeMap.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -66,6 +71,8 @@ Button seeMap;
               startActivity(new Intent(getContext(), MapsActivity.class));
           }
       });
+
+      //onclick of logout button
       logout.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View view) {
@@ -79,7 +86,7 @@ Button seeMap;
                               // Google Sign In failed, update UI appropriately
                               Intent intent=new Intent(getContext(), Login_Screen.class);
                               intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                              startActivity(intent);
+                              startActivity(intent); //intent to login activity
 
 
                           }
@@ -87,14 +94,20 @@ Button seeMap;
           }
       });
 
+
         LottieAnimationView lottieAnimationView = view.findViewById(R.id.lottieAnimationView);
         lottieAnimationView.setAnimation(R.raw.current_loc);
+        //PLAY LOTTIE ANIMATION
         lottieAnimationView.playAnimation();
+
+        //GET ID FOR ALL EDIT TEXT FIELD
         txtLat=view.findViewById(R.id.lat);
         txtLong=view.findViewById(R.id.longuitude);
         time=view.findViewById(R.id.time);
+        //FETCHING CURRENT LOCATION
         Location l=getCurrentLocation(getContext());
-        if(l!=null)
+
+        if(l!=null) //SET THE VALUES IN ALL EDIT TEXT
         {
             txtLat.setText(""+l.getLatitude());
             txtLong.setText(""+l.getLongitude());
@@ -102,13 +115,11 @@ Button seeMap;
             Date date = new Date();
             time.setText(formatter.format(date));
         }
-
-
-
         return view;
     }
 
 
+        //IF LOCATION IS CHANGED, SET THE NEW VALUES INTO THE EDIT TEXT
     @Override
     public void onLocationChanged(Location location) {
         Log.d("LocationAtt", "getCurrentLocation2: " + location.getLatitude() + ", " + location.getLongitude());
@@ -117,9 +128,6 @@ Button seeMap;
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
         Date date = new Date();
         time.setText(formatter.format(date));
-
-
-
     }
 
     @Override
@@ -136,9 +144,10 @@ Button seeMap;
     public void onProviderDisabled(String s) {
 
     }
+    //Extra Code
     public Location getCurrentLocation(Context mContext){
-        int MIN_TIME_BW_UPDATES = 1;
-        int MIN_DISTANCE_CHANGE_FOR_UPDATES = 0;
+        int MIN_TIME_BW_UPDATES = 1; //1 SEC
+        int MIN_DISTANCE_CHANGE_FOR_UPDATES = 100;  //1 METER
         Location loc = null;
         Double latitude, longitude;
 

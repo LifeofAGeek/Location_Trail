@@ -39,15 +39,19 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation "com.google.android.material:material:1.1.0-alpha02"
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+    //cardview
     implementation 'androidx.cardview:cardview:1.0.0'
     def lottieVersion = "3.3.1"
     implementation "com.airbnb.android:lottie:$lottieVersion"
-    /* implementation "com.google.android.gms:play-services-location:17.0.0"*/
+    //location
     implementation 'com.google.android.gms:play-services-location:17.0.0'
+    //map_location
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.material:material:1.0.0'
     implementation 'com.opencsv:opencsv:4.6'
+    //firebase
     implementation 'com.google.firebase:firebase-analytics:17.4.0'
+    //google_auth
     implementation 'com.google.firebase:firebase-auth:19.3.1'
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 
