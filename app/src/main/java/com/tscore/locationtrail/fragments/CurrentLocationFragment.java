@@ -30,6 +30,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.tscore.locationtrail.GPSHelper;
+import com.tscore.locationtrail.ListActivity;
 import com.tscore.locationtrail.Login_Screen;
 import com.tscore.locationtrail.MainActivity;
 import com.tscore.locationtrail.MapsActivity;
@@ -45,7 +46,7 @@ import static androidx.core.content.ContextCompat.getSystemService;
 public class CurrentLocationFragment extends Fragment  implements android.location.LocationListener {
 
     TextView txtLat,txtLong,time,logout;
-Button seeMap;
+Button seeMap,seeDevices;
     FirebaseAuth firebaseAuth;
     GoogleSignInClient googleSignInClient;
 
@@ -61,6 +62,7 @@ Button seeMap;
 
       getCurrentLocation(getContext()); //finds current location
       seeMap=view.findViewById(R.id.seeMap);
+      seeDevices=view.findViewById(R.id.scan_bluetooth);
       logout=view.findViewById(R.id.logout);
 
       // on click of show in map -> intent to maps activity
@@ -71,6 +73,13 @@ Button seeMap;
               startActivity(new Intent(getContext(), MapsActivity.class));
           }
       });
+        seeDevices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getContext(), ListActivity.class));
+            }
+        });
 
       //onclick of logout button
       logout.setOnClickListener(new View.OnClickListener() {

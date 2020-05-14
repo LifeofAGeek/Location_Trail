@@ -61,7 +61,7 @@ public class Login_Screen extends AppCompatActivity {
 
     }
     private void signIn() {
-        //move to select google id -> dialog box
+        //move to select google id screen
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, 101);
     }
@@ -116,7 +116,7 @@ public class Login_Screen extends AppCompatActivity {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = auth.getCurrentUser();
         if (currentUser != null) {
-            //fragment to main activity 
+
             Intent intent=new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
         }
